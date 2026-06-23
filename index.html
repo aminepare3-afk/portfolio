@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Amine Paré — Développeur Web · Bobo-Dioulasso</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cabinet+Grotesk:wght@400;700;800;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+
+<!-- PROGRESS BAR -->
+<div id="progress-bar"></div>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-name"><span>AMINE</span><span>&nbsp;PARÉ</span></div>
+  <div class="loader-bar-wrap"><div class="loader-bar"></div></div>
+  <div class="loader-num" id="loader-num">000</div>
+</div>
+
+<!-- VIDEO BG -->
+<video id="video-bg" autoplay loop muted playsinline preload="auto">
+  <source src="assets/bg.mp4" type="video/mp4"/>
+</video>
+<div id="video-overlay"></div>
+
+<!-- MOBILE MENU -->
+<div class="nav-mobile-menu" id="mobile-menu">
+  <a href="#about" class="mob-link">À propos</a>
+  <a href="#skills" class="mob-link">Skills</a>
+  <a href="#projects" class="mob-link">Projets</a>
+  <a href="#experience" class="mob-link">Parcours</a>
+  <a href="#galerie" class="mob-link">Galerie</a>
+  <a href="#contact" class="mob-link">Contact</a>
+</div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">AP<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">À propos</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projets</a></li>
+    <li><a href="#experience">Parcours</a></li>
+    <li><a href="#galerie">Galerie</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Me contacter</a>
+  <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ══════════ HERO ══════════ -->
+<section id="hero">
+  <div class="hero-bg-grid"></div>
+  <div class="hero-left">
+    <div class="hero-chip"><span class="dot-pulse"></span>Disponible pour missions</div>
+    <h1 class="hero-title">
+      <span class="hero-title-line"><span class="hero-title-inner">AMINE</span></span>
+      <span class="hero-title-line"><span class="hero-title-inner">PARÉ</span></span>
+      <span class="hero-title-line"><span class="hero-title-inner">DEV.</span></span>
+    </h1>
+    <div class="hero-role">
+      <span class="rtag">Frontend · Fullstack</span>
+      Développeur Web · Bobo-Dioulasso 🇧🇫
+    </div>
+    <p class="hero-desc">
+      Développeur web <b>autodidacte</b> passionné, je construis des expériences digitales premium — du pixel au déploiement. Chaque projet est conçu pour <b>servir l'Afrique</b>.
+    </p>
+    <div class="hero-ctas">
+      <a href="#projects" class="btn-primary">
+        Voir mes projets
+        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="#contact" class="btn-secondary">Me contacter</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-frame">
+      <img src="assets/hero.jpg" alt="Amine Paré"/>
+    </div>
+  </div>
+  <div class="hero-badge-float">
+    <div class="hero-badge-num">3+</div>
+    <div class="hero-badge-label">Ans d'expérience</div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat"><div class="num">10<span>+</span></div><div class="lbl">Projets livrés</div></div>
+    <div class="stat"><div class="num">3<span>+</span></div><div class="lbl">Années de code</div></div>
+    <div class="stat"><div class="num">5<span>+</span></div><div class="lbl">Villes couvertes</div></div>
+    <div class="stat"><div class="num">∞</div><div class="lbl">Curiosité</div></div>
+  </div>
+  <div class="hero-scroll"><span>Scroll</span><div class="scroll-line"></div></div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span>HTML</span><span class="sep">✦</span><span>CSS</span><span class="sep">✦</span><span>JavaScript</span><span class="sep">✦</span><span>Supabase</span><span class="sep">✦</span><span>Cloudflare</span><span class="sep">✦</span><span>UI/UX Design</span><span class="sep">✦</span><span>Mobile First</span><span class="sep">✦</span><span>E-Commerce</span><span class="sep">✦</span><span>CinetPay</span><span class="sep">✦</span><span>API REST</span><span class="sep">✦</span><span>Mobile Money</span><span class="sep">✦</span><span>Figma</span><span class="sep">✦</span><span>Performance Web</span><span class="sep">✦</span><span>Netlify</span><span class="sep">✦</span>
+    <span>HTML</span><span class="sep">✦</span><span>CSS</span><span class="sep">✦</span><span>JavaScript</span><span class="sep">✦</span><span>Supabase</span><span class="sep">✦</span><span>Cloudflare</span><span class="sep">✦</span><span>UI/UX Design</span><span class="sep">✦</span><span>Mobile First</span><span class="sep">✦</span><span>E-Commerce</span><span class="sep">✦</span><span>CinetPay</span><span class="sep">✦</span><span>API REST</span><span class="sep">✦</span><span>Mobile Money</span><span class="sep">✦</span><span>Figma</span><span class="sep">✦</span><span>Performance Web</span><span class="sep">✦</span><span>Netlify</span><span class="sep">✦</span>
+  </div>
+</div>
+
+<!-- ══════════ ABOUT ══════════ -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-photo-wrap rv">
+      <img class="about-photo-main" src="assets/about1.jpg" alt="Amine Paré"/>
+      <div class="about-photo-deco"></div>
+      <div class="about-badge"><span class="bn">3</span><span class="bl">ans xp</span></div>
+    </div>
+    <div class="about-text rv">
+      <div class="section-label">À propos</div>
+      <h2>Autodidacte,<br><em>Passionné</em>,<br>Déterminé.</h2>
+      <p class="about-bio">Salut, moi c'est <strong>Amine Paré</strong>. Développeur web basé à <strong>Bobo-Dioulasso, Burkina Faso</strong>. <span class="pill">100% autodidacte</span> depuis 3 ans — pas d'école, juste une curiosité sans limite et des milliers d'heures de pratique sur de vrais projets.</p>
+      <p class="about-bio">Je construis des <strong>expériences web premium</strong> adaptées au contexte africain : interfaces élégantes, e-commerces performants, marketplaces, intégrations Mobile Money. Mon approche : <strong>design-first, performance-driven, user-obsessed</strong>.</p>
+      <p class="about-bio">Chaque ligne de code que j'écris porte une conviction : <strong>la tech peut transformer le Burkina Faso</strong>. C'est ce qui me fait me lever le matin.</p>
+      <div class="about-stats">
+        <div><div class="about-stat-num">10+</div><div class="about-stat-label">Projets livrés</div></div>
+        <div><div class="about-stat-num">3+</div><div class="about-stat-label">Années de code</div></div>
+        <div><div class="about-stat-num">∞</div><div class="about-stat-label">Curiosité</div></div>
+      </div>
+      <div class="about-tags">
+        <span class="about-tag">Self-taught</span>
+        <span class="about-tag">Burkina Faso 🇧🇫</span>
+        <span class="about-tag">Frontend</span>
+        <span class="about-tag">Fullstack</span>
+        <span class="about-tag">E-Commerce</span>
+        <span class="about-tag">Mobile Money</span>
+        <span class="about-tag">UI/UX</span>
+        <span class="about-tag">Cloudflare</span>
+        <span class="about-tag">Supabase</span>
+        <span class="about-tag">Design systems</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ SKILLS ══════════ -->
+<section id="skills">
+  <div class="rv">
+    <div class="section-label">Tech Stack</div>
+    <h2 class="section-title">Mes<br>Compétences.</h2>
+  </div>
+  <div class="skills-grid">
+    <div class="sk rv"><span class="sk-ic">⚡</span><div class="sk-n">HTML / CSS</div><div class="sk-level">Expert</div><div class="sk-l">Sémantique HTML5 · CSS3 avancé<br>Flexbox & CSS Grid<br>Animations & transitions<br>Responsive / Mobile First<br>CSS custom properties<br>Performance & accessibilité</div><div class="sk-bar-wrap"><div class="sk-bar" style="--w:95%"></div></div></div>
+    <div class="sk rv"><span class="sk-ic">🟡</span><div class="sk-n">JavaScript</div><div class="sk-level">Avancé</div><div class="sk-l">Vanilla JS · ES6+ · DOM API<br>Fetch / Async-Await<br>LocalStorage & SessionStorage<br>Canvas & WebGL basique<br>Gestion d'état vanilla<br>Modules & bundling</div><div class="sk-bar-wrap"><div class="sk-bar" style="--w:87%"></div></div></div>
+    <div class="sk rv"><span class="sk-ic">🗄️</span><div class="sk-n">Supabase</div><div class="sk-level">Confirmé</div><div class="sk-l">PostgreSQL · Tables & relations<br>Row Level Security (RLS)<br>Storage & CDN intégré<br>Realtime subscriptions<br>Edge Functions<br>Auth & OAuth</div><div class="sk-bar-wrap"><div class="sk-bar" style="--w:82%"></div></div></div>
+    <div class="sk rv"><span class="sk-ic">🚀</span><div class="sk-n">Déploiement</div><div class="sk-level">Expert</div><div class="sk-l">Cloudflare Pages · Workers<br>Netlify · Vercel<br>Domaines custom & DNS<br>Headers & redirections<br>Variables d'environnement<br>Performance & cache</div><div class="sk-bar-wrap"><div class="sk-bar" style="--w:91%"></div></div></div>
+    <div class="sk rv"><span class="sk-ic">💳</span><div class="sk-n">Paiements Africains</div><div class="sk-level">Confirmé</div><div class="sk-l">CinetPay SDK intégration<br>Orange Money (BF · CI)<br>MTN MoMo<br>Moov Money / Airtel<br>Cartes Visa / Mastercard<br>Webhooks & sécurité</div><div class="sk-bar-wrap"><div class="sk-bar" style="--w:79%"></div></div></div>
+    <div class="sk rv"><span class="sk-ic">🎨</span><div class="sk-n">UI/UX Design</div><div class="sk-level">Avancé</div><div class="sk-l">Figma · Prototypage<br>Design systems<br>Typographie & grille<br>Micro-interactions<br>Identité visuelle<br>UX research basique</div><div class="sk-bar-wrap"><div class="sk-bar" style="--w:84%"></div></div></div>
+    <div class="sk rv"><span class="sk-ic">🛒</span><div class="sk-n">E-Commerce</div><div class="sk-level">Expert</div><div class="sk-l">Boutiques custom HTML/JS<br>Panier & checkout<br>Admin panels<br>Catalogue dynamique<br>Commandes WhatsApp<br>Codes promo & réductions</div><div class="sk-bar-wrap"><div class="sk-bar" style="--w:92%"></div></div></div>
+    <div class="sk rv"><span class="sk-ic">📡</span><div class="sk-n">APIs & Intégrations</div><div class="sk-level">Avancé</div><div class="sk-l">REST APIs · JSON<br>RSS feeds & aggregation<br>CORS & Proxy workers<br>ImgBB & CDN images<br>WhatsApp API<br>Webhooks</div><div class="sk-bar-wrap"><div class="sk-bar" style="--w:83%"></div></div></div>
+  </div>
+  <div class="tools-section rv">
+    <div class="tools-title">Outils & technologies</div>
+    <div class="tools-grid">
+      <span class="tool-pill featured">HTML5</span><span class="tool-pill featured">CSS3</span><span class="tool-pill featured">JavaScript ES6+</span><span class="tool-pill featured">Supabase</span><span class="tool-pill featured">Cloudflare Pages</span><span class="tool-pill">Netlify</span><span class="tool-pill">Vercel</span><span class="tool-pill featured">CinetPay</span><span class="tool-pill">Figma</span><span class="tool-pill">Notion</span><span class="tool-pill">Git / GitHub</span><span class="tool-pill">VS Code</span><span class="tool-pill">ImgBB</span><span class="tool-pill">Postman</span><span class="tool-pill">Canvas API</span><span class="tool-pill">IntersectionObserver</span><span class="tool-pill">Web Workers</span><span class="tool-pill">Service Workers</span>
+    </div>
+  </div>
+  <div class="tools-section rv">
+    <div class="tools-title">Qualités humaines</div>
+    <div class="soft-grid">
+      <div class="soft-card rv"><div class="soft-ic">🧠</div><div class="soft-name">Autodidacte</div><div class="soft-desc">Apprendre seul, vite, et bien. Je transforme chaque obstacle en leçon. 3 ans de formation autonome sans école ni mentor.</div></div>
+      <div class="soft-card rv"><div class="soft-ic">🎯</div><div class="soft-name">Orienté résultats</div><div class="soft-desc">Je ne livre pas de la démo. Je livre des produits qui tournent en production, qui génèrent du trafic et des ventes réelles.</div></div>
+      <div class="soft-card rv"><div class="soft-ic">⚡</div><div class="soft-name">Réactivité</div><div class="soft-desc">Délais tenus, retours rapides, itérations courtes. Les clients savent que je suis là et que ça avance.</div></div>
+      <div class="soft-card rv"><div class="soft-ic">🌍</div><div class="soft-name">Vision africaine</div><div class="soft-desc">Je connais les contraintes locales : connexions lentes, paiements Mobile Money, UX adaptée. Je build pour la réalité africaine.</div></div>
+      <div class="soft-card rv"><div class="soft-ic">🔥</div><div class="soft-name">Passion</div><div class="soft-desc">Le code n'est pas un travail, c'est une obsession. Je lis des docs le soir, je teste des idées le week-end, j'explore sans cesse.</div></div>
+      <div class="soft-card rv"><div class="soft-ic">🤝</div><div class="soft-name">Communication</div><div class="soft-desc">Clair sur les délais, transparent sur les blocages. Je traduis le technique en simple pour mes clients non-tech.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ PROJECTS ══════════ -->
+<section id="projects">
+  <div class="projects-header">
+    <div class="rv">
+      <div class="section-label">Réalisations</div>
+      <h2 class="section-title">Projets<br>Récents.</h2>
+    </div>
+  </div>
+  <!-- Les projets sont chargés dynamiquement depuis Supabase via js/projects.js -->
+  <div class="projects-grid" id="projects-grid">
+    <!-- Skeleton loader pendant le chargement -->
+    <div class="proj-skeleton wide"></div>
+    <div class="proj-skeleton side"></div>
+    <div class="proj-skeleton wide"></div>
+    <div class="proj-skeleton wide"></div>
+  </div>
+</section>
+
+<!-- ══════════ PROCESS ══════════ -->
+<section id="process">
+  <div class="rv">
+    <div class="section-label">Méthode</div>
+    <h2 class="section-title">Comment<br>je travaille.</h2>
+  </div>
+  <div class="proc-grid">
+    <div class="proc-card rv"><div class="proc-step">Étape 01</div><div class="proc-title">Comprendre</div><div class="proc-desc">J'écoute ton besoin, j'analyse le contexte et les objectifs avant d'écrire la première ligne de code.</div></div>
+    <div class="proc-card rv"><div class="proc-step">Étape 02</div><div class="proc-title">Concevoir</div><div class="proc-desc">Je dessine l'interface et choisis l'architecture technique — pas de surprise en cours de route.</div></div>
+    <div class="proc-card rv"><div class="proc-step">Étape 03</div><div class="proc-title">Construire</div><div class="proc-desc">Code propre, responsive, rapide. Je livre ce qui fonctionne vraiment, pas de la démo.</div></div>
+    <div class="proc-card rv"><div class="proc-step">Étape 04</div><div class="proc-title">Déployer</div><div class="proc-desc">Mise en ligne sur Cloudflare ou Netlify, domaine configuré, performances optimisées. Prêt à l'emploi.</div></div>
+  </div>
+</section>
+
+<!-- ══════════ EXPERIENCE ══════════ -->
+<section id="experience">
+  <div class="rv">
+    <div class="section-label">Parcours</div>
+    <h2 class="section-title">Mon<br>Évolution.</h2>
+  </div>
+  <div class="timeline">
+    <div class="timeline-item rv">
+      <div class="timeline-date">2024 — Présent</div>
+      <div class="timeline-role">Fondateur & Développeur Principal</div>
+      <div class="timeline-company">TechBF · Marketplace de services · Bobo-Dioulasso, BF</div>
+      <p class="timeline-desc">Conception et développement complet d'une marketplace de services techniques connectant clients et artisans à travers les villes du Burkina Faso. Architecture multi-pages (9 pages), flux client & technicien séparés, messagerie temps réel, tableau de bord, système de parrainage.</p>
+      <div class="timeline-tags"><span class="timeline-tag">Supabase</span><span class="timeline-tag">Vanilla JS</span><span class="timeline-tag">Cloudflare Pages</span><span class="timeline-tag">Realtime</span><span class="timeline-tag">Mobile First</span></div>
+    </div>
+    <div class="timeline-item rv">
+      <div class="timeline-date">2023 — Présent</div>
+      <div class="timeline-role">Fondateur & Développeur</div>
+      <div class="timeline-company">EMBF Boutique · E-Commerce Tech Premium · Bobo-Dioulasso, BF</div>
+      <p class="timeline-desc">Création et opération d'une boutique e-commerce tech de zéro : architecture complète, design premium, backend Supabase avec gestion stock, intégration paiements Mobile Money via CinetPay, commandes WhatsApp automatisées, admin panel full-featured.</p>
+      <div class="timeline-tags"><span class="timeline-tag">CinetPay</span><span class="timeline-tag">Supabase</span><span class="timeline-tag">Netlify</span><span class="timeline-tag">Mobile Money</span><span class="timeline-tag">Admin Panel</span></div>
+    </div>
+    <div class="timeline-item rv">
+      <div class="timeline-date">2023</div>
+      <div class="timeline-role">Développeur & Designer</div>
+      <div class="timeline-company">FASOKO · Portail d'actualités · Burkina Faso</div>
+      <p class="timeline-desc">Conception et développement d'un agrégateur d'actualités burkinabè couvrant politique, sport et culture. Agrégation de flux RSS multiples, architecture serverless Cloudflare, design inspiré de l'identité sahélienne.</p>
+      <div class="timeline-tags"><span class="timeline-tag">RSS Aggregator</span><span class="timeline-tag">Cloudflare Workers</span><span class="timeline-tag">Design Sahélien</span><span class="timeline-tag">Performance</span></div>
+    </div>
+    <div class="timeline-item rv">
+      <div class="timeline-date">2022 — 2024</div>
+      <div class="timeline-role">Développeur Frontend Freelance</div>
+      <div class="timeline-company">Projets clients · Burkina Faso & région</div>
+      <p class="timeline-desc">Conception et livraison de sites vitrine, landing pages et interfaces web pour clients locaux. Maîtrise progressive du HTML/CSS/JS avancé, des animations, du responsive design et bonnes pratiques de performance.</p>
+      <div class="timeline-tags"><span class="timeline-tag">Sites vitrine</span><span class="timeline-tag">Landing pages</span><span class="timeline-tag">Animations CSS</span><span class="timeline-tag">Figma</span></div>
+    </div>
+    <div class="timeline-item rv">
+      <div class="timeline-date">2021 — 2022</div>
+      <div class="timeline-role">Auto-formation intensive</div>
+      <div class="timeline-company">Self-taught · Internet · Bobo-Dioulasso</div>
+      <p class="timeline-desc">Point de départ : zéro. Apprentissage autodidacte intensif à travers des tutoriels, de la documentation officielle et des dizaines de projets personnels. HTML, CSS, JavaScript, bases de données, déploiement.</p>
+      <div class="timeline-tags"><span class="timeline-tag">HTML / CSS</span><span class="timeline-tag">JavaScript</span><span class="timeline-tag">Projets personnels</span><span class="timeline-tag">Auto-formation</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ GALERIE ══════════ -->
+<section id="galerie">
+  <div class="rv">
+    <div class="section-label">Galerie</div>
+    <h2 class="section-title">En<br>Images.</h2>
+  </div>
+  <div class="galerie-grid">
+    <div class="galerie-card rv">
+      <div class="galerie-img-wrap">
+        <img src="assets/hero.jpg" alt="Amine Paré — Portrait professionnel"/>
+        <div class="galerie-overlay">
+          <span class="galerie-label">Portrait professionnel</span>
+        </div>
+      </div>
+    </div>
+    <div class="galerie-card rv">
+      <div class="galerie-img-wrap">
+        <img src="assets/about1.jpg" alt="Amine Paré — Style décontracté"/>
+        <div class="galerie-overlay">
+          <span class="galerie-label">Style décontracté</span>
+        </div>
+      </div>
+    </div>
+    <div class="galerie-card featured rv">
+      <div class="galerie-img-wrap">
+        <img src="assets/about2.jpg" alt="Amine Paré — Tenue traditionnelle"/>
+        <div class="galerie-overlay">
+          <span class="galerie-label">Tenue traditionnelle burkinabè</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ CONTACT ══════════ -->
+<section id="contact">
+  <div class="rv">
+    <div class="section-label">Contact</div>
+    <h2 class="section-title">Travaillons<br>Ensemble<span style="color:var(--orange)">.</span></h2>
+  </div>
+  <div class="contact-grid">
+    <div class="rv">
+      <p class="contact-text">Un projet, une idée, une collaboration ? Je suis disponible pour discuter de vos besoins et construire quelque chose d'exceptionnel pour l'Afrique.</p>
+      <div class="contact-items">
+        <a href="mailto:aminepare931@gmail.com" class="contact-item"><div class="contact-item-icon">✉</div>aminepare931@gmail.com</a>
+        <a href="https://wa.me/22655300858" class="contact-item"><div class="contact-item-icon">💬</div>+226 55 30 08 58</a>
+        <div class="contact-item"><div class="contact-item-icon">📍</div>Bobo-Dioulasso, Burkina Faso 🇧🇫</div>
+      </div>
+      <div class="social-links">
+        <a href="#" class="social-link">IG</a>
+        <a href="#" class="social-link">FB</a>
+        <a href="#" class="social-link">GH</a>
+        <a href="#" class="social-link">WA</a>
+      </div>
+    </div>
+    <div class="rv">
+      <form class="contact-form" onsubmit="handleSubmit(event)">
+        <div class="form-group"><label>Nom</label><input type="text" placeholder="Votre nom complet" required/></div>
+        <div class="form-group"><label>Email</label><input type="email" placeholder="votre@email.com" required/></div>
+        <div class="form-group"><label>Sujet</label><input type="text" placeholder="Projet, collaboration..."/></div>
+        <div class="form-group"><label>Message</label><textarea placeholder="Décrivez votre projet..." required></textarea></div>
+        <button type="submit" class="btn-primary form-submit" style="border:none;cursor:pointer;">
+          Envoyer le message
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer>
+  <span class="ft-c">© 2026 Amine Paré — Développeur Web · Bobo-Dioulasso, Burkina Faso</span>
+  <div class="ft-av"><span class="ft-dot"></span>Disponible pour missions</div>
+  <a href="#hero" class="footer-back">Retour en haut <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg></a>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/projects.js"></script>
+</body>
+</html>

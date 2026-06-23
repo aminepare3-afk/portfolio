@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Admin — Portfolio Amine Paré</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cabinet+Grotesk:wght@400;700;800;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#080808;--surface:#111;--surface2:#181818;--border:rgba(255,255,255,.07);
+  --text:#f0ebe1;--muted:#6b6560;--orange:#FF4D00;--yellow:#FFD000;--green:#00E07A;--red:#ff3b3b;
+  --ff-display:'Bebas Neue',sans-serif;--ff-head:'Cabinet Grotesk',sans-serif;--ff-mono:'DM Mono',monospace;
+  --ease:cubic-bezier(0.16,1,0.3,1);
+}
+html{font-size:16px;scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--ff-head);min-height:100vh;overflow-x:hidden}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-thumb{background:var(--orange)}
+::selection{background:var(--orange);color:#000}
+
+/* LOGIN */
+#login-screen{position:fixed;inset:0;background:#000;z-index:1000;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:2rem;transition:opacity .5s,visibility .5s}
+#login-screen.hidden{opacity:0;visibility:hidden;pointer-events:none}
+.login-logo{font-family:var(--ff-display);font-size:4rem;letter-spacing:.1em}
+.login-logo span{color:var(--orange)}
+.login-sub{font-family:var(--ff-mono);font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.login-box{background:var(--surface);border:1px solid var(--border);padding:2.5rem;width:100%;max-width:380px;display:flex;flex-direction:column;gap:1.1rem}
+.login-box h2{font-family:var(--ff-display);font-size:1.8rem;letter-spacing:.05em}
+.f-input{background:var(--surface2);border:1px solid var(--border);color:var(--text);font-family:var(--ff-mono);font-size:.9rem;padding:.85rem 1rem;outline:none;width:100%;transition:border-color .3s}
+.f-input:focus{border-color:rgba(255,77,0,.5)}
+.f-input::placeholder{color:var(--muted)}
+.login-btn{background:var(--orange);color:#000;font-family:var(--ff-mono);font-weight:700;font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;border:none;padding:1rem;cursor:pointer;width:100%;transition:opacity .2s}
+.login-btn:hover{opacity:.85}
+.login-err{font-family:var(--ff-mono);font-size:.68rem;color:var(--red);display:none}
+.login-err.show{display:block}
+.login-hint{font-family:var(--ff-mono);font-size:.6rem;color:var(--muted);text-align:center}
+
+/* TOPBAR */
+#admin-app{display:none;min-height:100vh;flex-direction:column}
+#admin-app.visible{display:flex}
+.topbar{background:var(--surface);border-bottom:1px solid var(--border);padding:1rem 2.5rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;flex-wrap:wrap;gap:.8rem}
+.topbar-logo{font-family:var(--ff-display);font-size:1.4rem;letter-spacing:.1em}
+.topbar-logo span{color:var(--orange)}
+.topbar-right{display:flex;align-items:center;gap:.8rem;flex-wrap:wrap}
+.badge-live{font-family:var(--ff-mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--green);border:1px solid rgba(0,224,122,.25);padding:.3rem .8rem;border-radius:100px;display:flex;align-items:center;gap:.4rem}
+.pulse{width:5px;height:5px;background:var(--green);border-radius:50%;animation:p 2s infinite}
+@keyframes p{0%,100%{opacity:1}50%{opacity:.2}}
+.btn{font-family:var(--ff-mono);font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;padding:.5rem 1rem;border:none;cursor:pointer;transition:all .2s;text-decoration:none;display:inline-flex;align-items:center;gap:.4rem}
+.btn.outline{background:none;border:1px solid var(--border);color:var(--muted)}
+.btn.outline:hover{border-color:var(--orange);color:var(--orange)}
+.btn.danger{background:rgba(255,59,59,.1);border:1px solid rgba(255,59,59,.2);color:var(--red)}
+.btn.danger:hover{background:var(--red);color:#fff}
+.btn.primary{background:var(--orange);color:#000;font-weight:700}
+.btn.primary:hover{opacity:.85}
+.btn.green{background:rgba(0,224,122,.1);border:1px solid rgba(0,224,122,.25);color:var(--green)}
+.btn.green:hover{background:var(--green);color:#000}
+
+/* MAIN GRID */
+.admin-main{display:grid;grid-template-columns:1fr 400px;gap:2rem;padding:2rem 2.5rem;flex:1;align-items:start}
+
+/* STATS */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);background:var(--surface);border:1px solid var(--border);margin-bottom:1.5rem}
+.stat{padding:1rem 1.2rem;border-right:1px solid var(--border)}
+.stat:last-child{border-right:none}
+.stat-n{font-family:var(--ff-display);font-size:2rem;color:var(--orange);line-height:1}
+.stat-l{font-family:var(--ff-mono);font-size:.56rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:.2rem}
+
+/* LIST */
+.list-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.2rem;flex-wrap:wrap;gap:.6rem}
+.list-title{font-family:var(--ff-display);font-size:2rem;letter-spacing:.03em}
+.list-count{font-family:var(--ff-mono);font-size:.62rem;color:var(--muted);background:var(--surface);border:1px solid var(--border);padding:.3rem .8rem}
+.list-empty{background:var(--surface);border:1px solid var(--border);padding:3rem;text-align:center}
+.list-empty-icon{font-size:2.5rem;margin-bottom:.6rem}
+.list-empty-txt{font-family:var(--ff-mono);font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
+.proj-list{display:flex;flex-direction:column;gap:1px;background:var(--border)}
+.proj-item{background:var(--surface);padding:1.1rem 1.4rem;display:flex;align-items:center;gap:1rem;transition:background .2s;cursor:default}
+.proj-item:hover{background:var(--surface2)}
+.drag-handle{cursor:grab;color:rgba(255,255,255,.15);font-size:1.1rem;user-select:none;transition:color .2s;flex-shrink:0}
+.drag-handle:hover{color:var(--muted)}
+.proj-thumb{width:60px;height:44px;object-fit:cover;flex-shrink:0;border:1px solid var(--border)}
+.proj-thumb-ph{width:60px;height:44px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.3rem;border:1px solid var(--border);background:var(--surface2)}
+.proj-info{flex:1;min-width:0}
+.proj-name{font-family:var(--ff-display);font-size:1.15rem;letter-spacing:.03em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.proj-tags{display:flex;gap:.3rem;flex-wrap:wrap;margin-top:.2rem}
+.proj-tag{font-family:var(--ff-mono);font-size:.54rem;padding:.12rem .45rem;background:rgba(255,77,0,.08);color:rgba(255,77,0,.7)}
+.proj-size{font-family:var(--ff-mono);font-size:.56rem;color:var(--muted);white-space:nowrap;flex-shrink:0}
+.proj-actions{display:flex;gap:.35rem;flex-shrink:0}
+
+/* FORM PANEL */
+.form-panel{background:var(--surface);border:1px solid var(--border);padding:2rem;position:sticky;top:80px;max-height:calc(100vh - 100px);overflow-y:auto}
+.form-panel::-webkit-scrollbar{width:3px}
+.form-panel::-webkit-scrollbar-thumb{background:var(--orange)}
+.panel-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid var(--border)}
+.panel-title{font-family:var(--ff-display);font-size:1.5rem;letter-spacing:.04em}
+.panel-title span{color:var(--orange)}
+.edit-badge{font-family:var(--ff-mono);font-size:.56rem;letter-spacing:.1em;text-transform:uppercase;background:rgba(255,208,0,.1);border:1px solid rgba(255,208,0,.3);color:var(--yellow);padding:.22rem .65rem;display:none}
+.edit-badge.show{display:inline-block}
+.fg{display:flex;flex-direction:column;gap:.35rem;margin-bottom:1rem}
+.fl{font-family:var(--ff-mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.fl .req{color:var(--orange)}
+.fi,.ft,.fs{background:var(--surface2);border:1px solid var(--border);color:var(--text);font-family:var(--ff-head);font-size:.87rem;padding:.75rem .9rem;outline:none;transition:border-color .3s;width:100%}
+.fi:focus,.ft:focus,.fs:focus{border-color:rgba(255,77,0,.45)}
+.fi::placeholder,.ft::placeholder{color:var(--muted)}
+.ft{min-height:90px;resize:vertical}
+.fs option{background:var(--surface2)}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+.fhint{font-family:var(--ff-mono);font-size:.56rem;color:rgba(107,101,96,.65);margin-top:.15rem;line-height:1.5}
+
+/* Tags */
+.tags-wrap{display:flex;flex-wrap:wrap;gap:.35rem;background:var(--surface2);border:1px solid var(--border);padding:.55rem .8rem;min-height:42px;align-items:center;cursor:text;transition:border-color .3s}
+.tags-wrap:focus-within{border-color:rgba(255,77,0,.45)}
+.tag-chip{display:inline-flex;align-items:center;gap:.25rem;background:rgba(255,77,0,.1);border:1px solid rgba(255,77,0,.25);color:var(--orange);font-family:var(--ff-mono);font-size:.58rem;padding:.18rem .5rem}
+.tag-chip button{background:none;border:none;color:var(--orange);cursor:pointer;font-size:.75rem;line-height:1;padding:0;opacity:.6}
+.tag-chip button:hover{opacity:1}
+.tag-input-field{background:none;border:none;color:var(--text);font-family:var(--ff-mono);font-size:.7rem;outline:none;flex:1;min-width:70px}
+
+/* Colors */
+.color-opts{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.3rem}
+.color-opt{width:26px;height:26px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:transform .2s,border-color .2s;flex-shrink:0}
+.color-opt:hover{transform:scale(1.12)}
+.color-opt.active{border-color:var(--text)}
+
+/* Upload */
+.upload-area{border:1.5px dashed var(--border);padding:1.2rem;text-align:center;cursor:pointer;transition:border-color .3s,background .3s;position:relative}
+.upload-area:hover{border-color:rgba(255,77,0,.4);background:rgba(255,77,0,.03)}
+.upload-area input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.upload-icon{font-size:1.6rem;margin-bottom:.3rem}
+.upload-txt{font-family:var(--ff-mono);font-size:.62rem;letter-spacing:.08em;color:var(--muted);text-transform:uppercase}
+.upload-prev{width:100%;max-height:130px;object-fit:cover;display:none;margin-top:.5rem;border:1px solid var(--border)}
+.upload-prev.show{display:block}
+
+/* Checkbox */
+.fcheck{display:flex;align-items:center;gap:.7rem;cursor:pointer}
+.fcheck input{width:15px;height:15px;accent-color:var(--orange);cursor:pointer}
+
+/* Actions */
+.form-actions{display:flex;gap:.6rem;margin-top:1.4rem;padding-top:1.2rem;border-top:1px solid var(--border)}
+.btn-submit{flex:1;background:var(--orange);color:#000;font-family:var(--ff-mono);font-weight:700;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;border:none;padding:.95rem;cursor:pointer;transition:opacity .2s}
+.btn-submit:hover{opacity:.85}
+.btn-submit:disabled{opacity:.5;cursor:not-allowed}
+.btn-cancel-form{background:var(--surface2);border:1px solid var(--border);color:var(--muted);font-family:var(--ff-mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;padding:.95rem 1.1rem;cursor:pointer;transition:all .2s;display:none}
+.btn-cancel-form.show{display:block}
+.btn-cancel-form:hover{border-color:var(--red);color:var(--red)}
+
+/* Toast */
+#toast{position:fixed;bottom:1.8rem;right:1.8rem;z-index:999;display:flex;flex-direction:column;gap:.45rem}
+.t-msg{font-family:var(--ff-mono);font-size:.7rem;letter-spacing:.06em;padding:.75rem 1.3rem;border-left:3px solid var(--orange);background:var(--surface);color:var(--text);animation:tin .4s var(--ease) forwards;max-width:280px}
+.t-msg.ok{border-color:var(--green)}
+.t-msg.err{border-color:var(--red)}
+@keyframes tin{from{opacity:0;transform:translateX(18px)}to{opacity:1;transform:translateX(0)}}
+
+/* Modal */
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(4px);z-index:800;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:all .3s}
+.modal.show{opacity:1;visibility:visible}
+.modal-box{background:var(--surface);border:1px solid var(--border);padding:2rem;max-width:360px;width:90%;transform:scale(.95);transition:transform .3s var(--ease)}
+.modal.show .modal-box{transform:scale(1)}
+.modal-title{font-family:var(--ff-display);font-size:1.4rem;margin-bottom:.5rem}
+.modal-text{font-size:.85rem;color:var(--muted);line-height:1.65;margin-bottom:1.4rem}
+.modal-actions{display:flex;gap:.6rem;justify-content:flex-end}
+
+/* Loading spinner */
+.spinner{display:inline-block;width:14px;height:14px;border:2px solid rgba(0,0,0,.3);border-top-color:#000;border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .admin-main{grid-template-columns:1fr;padding:1.2rem}
+  .form-panel{position:static;max-height:none}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .stat:nth-child(2){border-right:none}
+  .topbar{padding:1rem 1.2rem}
+}
+@media(max-width:500px){
+  .frow{grid-template-columns:1fr}
+  .proj-item{flex-wrap:wrap}
+  .stats{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="login-logo">AP<span>.</span>ADMIN</div>
+  <div class="login-sub">Panneau d'administration — Portfolio</div>
+  <div class="login-box">
+    <h2>Connexion</h2>
+    <input class="f-input" id="pass-input" type="password" placeholder="Mot de passe"/>
+    <button class="login-btn" onclick="doLogin()">Accéder au panneau</button>
+    <div class="login-err" id="login-err">❌ Mot de passe incorrect</div>
+    <div class="login-hint">: <strong></strong> — </div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="admin-app">
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="topbar-logo">AP<span>.</span>ADMIN</div>
+    <div class="topbar-right">
+      <div class="badge-live"><span class="pulse"></span>Supabase connecté</div>
+      <a href="index.html" target="_blank" class="btn green">👁 Voir le portfolio</a>
+      <button class="btn danger" onclick="doLogout()">Déconnexion</button>
+    </div>
+  </div>
+
+  <div class="admin-main">
+    <!-- LISTE -->
+    <div>
+      <div class="stats">
+        <div class="stat"><div class="stat-n" id="s-total">—</div><div class="stat-l">Projets total</div></div>
+        <div class="stat"><div class="stat-n" id="s-feat">—</div><div class="stat-l">En vedette</div></div>
+        <div class="stat"><div class="stat-n" id="s-links">—</div><div class="stat-l">Avec lien</div></div>
+        <div class="stat"><div class="stat-n" id="s-imgs">—</div><div class="stat-l">Avec image</div></div>
+      </div>
+      <div class="list-header">
+        <div class="list-title">Mes Projets</div>
+        <div class="list-count" id="list-count">Chargement...</div>
+      </div>
+      <div id="list-empty" class="list-empty" style="display:none">
+        <div class="list-empty-icon">📂</div>
+        <div class="list-empty-txt">Aucun projet — ajoutes-en un !</div>
+      </div>
+      <div class="proj-list" id="proj-list"></div>
+    </div>
+
+    <!-- FORMULAIRE -->
+    <div class="form-panel">
+      <div class="panel-head">
+        <div class="panel-title" id="panel-title">Nouveau <span>Projet</span></div>
+        <span class="edit-badge" id="edit-badge">✏️ Modification</span>
+      </div>
+
+      <div class="fg">
+        <label class="fl">Nom du projet <span class="req">*</span></label>
+        <input class="fi" id="f-name" type="text" placeholder="Ex: TechBF, EMBF Boutique..."/>
+      </div>
+
+      <div class="fg">
+        <label class="fl">Description <span class="req">*</span></label>
+        <textarea class="ft" id="f-desc" placeholder="Décris ton projet en 2-3 phrases..."></textarea>
+      </div>
+
+      <div class="fg">
+        <label class="fl">Tags / Technologies</label>
+        <div class="tags-wrap" id="tags-wrap">
+          <input class="tag-input-field" id="tag-input" type="text" placeholder="Tape un tag + Entrée"/>
+        </div>
+        <div class="fhint">Entrée ou virgule pour ajouter · Backspace pour supprimer</div>
+      </div>
+
+      <div class="frow">
+        <div class="fg" style="margin:0">
+          <label class="fl">Lien du projet</label>
+          <input class="fi" id="f-url" type="url" placeholder="https://..."/>
+        </div>
+        <div class="fg" style="margin:0">
+          <label class="fl">Taille carte</label>
+          <select class="fs" id="f-size">
+            <option value="wide">Moyenne (6/12)</option>
+            <option value="featured">Grande (7/12)</option>
+            <option value="side">Petite (5/12)</option>
+            <option value="full">Pleine largeur</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="frow" style="margin-top:1rem">
+        <div class="fg" style="margin:0">
+          <label class="fl">Emoji / icône</label>
+          <input class="fi" id="f-emoji" type="text" placeholder="🛍️ 🚀 📰" maxlength="4"/>
+        </div>
+        <div class="fg" style="margin:0">
+          <label class="fl">Position</label>
+          <input class="fi" id="f-position" type="number" placeholder="0" min="0"/>
+          <div class="fhint">0 = en premier</div>
+        </div>
+      </div>
+
+      <div class="fg" style="margin-top:1rem">
+        <label class="fl">Couleur accent</label>
+        <div class="color-opts" id="color-opts">
+          <div class="color-opt active" data-c="#FF4D00" style="background:#FF4D00"></div>
+          <div class="color-opt" data-c="#FFD000" style="background:#FFD000"></div>
+          <div class="color-opt" data-c="#00E07A" style="background:#00E07A"></div>
+          <div class="color-opt" data-c="#c084fc" style="background:#c084fc"></div>
+          <div class="color-opt" data-c="#38bdf8" style="background:#38bdf8"></div>
+          <div class="color-opt" data-c="#fb7185" style="background:#fb7185"></div>
+          <div class="color-opt" data-c="#e8c97a" style="background:#e8c97a"></div>
+          <div class="color-opt" data-c="#f0ebe1" style="background:#f0ebe1"></div>
+        </div>
+      </div>
+
+      <div class="fg" style="margin-top:1rem">
+        <label class="fl">Image / Capture d'écran</label>
+        <div class="upload-area">
+          <input type="file" id="f-img" accept="image/*" onchange="previewImg(this)"/>
+          <div class="upload-icon" id="up-icon">🖼️</div>
+          <div class="upload-txt" id="up-txt">Clique ou glisse une image<br><span style="font-size:.52rem;opacity:.5">JPG PNG WebP · max 1MB</span></div>
+          <img class="upload-prev" id="img-prev" alt=""/>
+        </div>
+        <div class="fhint">L'image sera stockée dans Supabase Storage si disponible, sinon en base64</div>
+      </div>
+
+      <div class="fg" style="margin-top:.8rem">
+        <label class="fcheck">
+          <input type="checkbox" id="f-featured"/>
+          Mettre en vedette (badge ★)
+        </label>
+      </div>
+
+      <div class="form-actions">
+        <button class="btn-cancel-form" id="btn-cancel" onclick="resetForm()">Annuler</button>
+        <button class="btn-submit" id="btn-submit" onclick="saveProject()">
+          <span id="submit-txt">➕ Ajouter le projet</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL SUPPRESSION -->
+<div class="modal" id="modal-del">
+  <div class="modal-box">
+    <div class="modal-title">Supprimer ce projet ?</div>
+    <div class="modal-text">Cette action est irréversible. Le projet sera retiré du portfolio pour tous les visiteurs.</div>
+    <div class="modal-actions">
+      <button class="btn outline" onclick="closeModal()">Annuler</button>
+      <button class="btn danger" id="btn-del-confirm">Supprimer</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+/* ══ CONFIG ══ */
+const SB_URL = 'https://btjdrlmudyfjkztfzkss.supabase.co';
+const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ0amRybG11ZHlmamt6dGZ6a3NzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE0MzY5MTEsImV4cCI6MjA5NzAxMjkxMX0.AaCJhrRtS2gxnlI0YEqPPyTXv9Z_dPvSPAYvtEXA5XE';
+const HEADERS = { 'apikey': SB_KEY, 'Authorization': `Bearer ${SB_KEY}`, 'Content-Type': 'application/json', 'Prefer': 'return=representation' };
+const PASS = 'amine2026'; // ← Change ici
+const SESSION = 'ap_admin_v2';
+
+/* ══ AUTH ══ */
+function doLogin() {
+  const v = document.getElementById('pass-input').value;
+  if (v === PASS) {
+    sessionStorage.setItem(SESSION, '1');
+    document.getElementById('login-screen').classList.add('hidden');
+    document.getElementById('admin-app').classList.add('visible');
+    loadProjects();
+  } else {
+    document.getElementById('login-err').classList.add('show');
+    setTimeout(() => document.getElementById('login-err').classList.remove('show'), 2500);
+  }
+}
+function doLogout() { sessionStorage.removeItem(SESSION); location.reload(); }
+document.getElementById('pass-input').addEventListener('keydown', e => { if(e.key==='Enter') doLogin(); });
+if (sessionStorage.getItem(SESSION)) {
+  document.getElementById('login-screen').classList.add('hidden');
+  document.getElementById('admin-app').classList.add('visible');
+  setTimeout(loadProjects, 100);
+}
+
+/* ══ SUPABASE API ══ */
+async function sbGet() {
+  const r = await fetch(`${SB_URL}/rest/v1/projects?select=*&order=position.asc,created_at.asc`, { headers: HEADERS });
+  if (!r.ok) throw new Error(await r.text());
+  return r.json();
+}
+async function sbInsert(data) {
+  const r = await fetch(`${SB_URL}/rest/v1/projects`, { method:'POST', headers: HEADERS, body: JSON.stringify(data) });
+  if (!r.ok) throw new Error(await r.text());
+  return r.json();
+}
+async function sbUpdate(id, data) {
+  const r = await fetch(`${SB_URL}/rest/v1/projects?id=eq.${id}`, { method:'PATCH', headers: HEADERS, body: JSON.stringify(data) });
+  if (!r.ok) throw new Error(await r.text());
+  return r.json();
+}
+async function sbDelete(id) {
+  const r = await fetch(`${SB_URL}/rest/v1/projects?id=eq.${id}`, { method:'DELETE', headers: HEADERS });
+  if (!r.ok) throw new Error(await r.text());
+}
+
+/* ══ TAGS ══ */
+let tags = [];
+function renderTags() {
+  const wrap = document.getElementById('tags-wrap');
+  wrap.querySelectorAll('.tag-chip').forEach(c => c.remove());
+  const inp = document.getElementById('tag-input');
+  tags.forEach((t,i) => {
+    const chip = document.createElement('div');
+    chip.className = 'tag-chip';
+    chip.innerHTML = `${t}<button onclick="removeTag(${i})">×</button>`;
+    wrap.insertBefore(chip, inp);
+  });
+}
+function removeTag(i) { tags.splice(i,1); renderTags(); }
+document.getElementById('tag-input').addEventListener('keydown', e => {
+  if (e.key==='Enter'||e.key===',') {
+    e.preventDefault();
+    const v = e.target.value.trim().replace(/,$/,'');
+    if (v && !tags.includes(v)) { tags.push(v); renderTags(); }
+    e.target.value='';
+  }
+  if (e.key==='Backspace' && !e.target.value && tags.length) { tags.pop(); renderTags(); }
+});
+document.getElementById('tags-wrap').addEventListener('click', () => document.getElementById('tag-input').focus());
+
+/* ══ COLOR ══ */
+let selColor = '#FF4D00';
+document.querySelectorAll('.color-opt').forEach(el => {
+  el.addEventListener('click', () => {
+    document.querySelectorAll('.color-opt').forEach(o => o.classList.remove('active'));
+    el.classList.add('active');
+    selColor = el.dataset.c;
+  });
+});
+
+/* ══ IMAGE ══ */
+let imgData = null;
+function previewImg(input) {
+  const file = input.files[0];
+  if (!file) return;
+  if (file.size > 1.5*1024*1024) { showToast('Image trop lourde (max 1.5MB)', 'err'); return; }
+  const reader = new FileReader();
+  reader.onload = e => {
+    imgData = e.target.result;
+    document.getElementById('img-prev').src = imgData;
+    document.getElementById('img-prev').classList.add('show');
+    document.getElementById('up-icon').style.display = 'none';
+    document.getElementById('up-txt').style.display = 'none';
+  };
+  reader.readAsDataURL(file);
+}
+
+/* ══ SAVE ══ */
+let editingId = null;
+
+async function saveProject() {
+  const name = document.getElementById('f-name').value.trim();
+  const desc = document.getElementById('f-desc').value.trim();
+  if (!name) { showToast('Nom requis', 'err'); return; }
+  if (!desc)  { showToast('Description requise', 'err'); return; }
+
+  const btn = document.getElementById('btn-submit');
+  btn.disabled = true;
+  document.getElementById('submit-txt').innerHTML = '<span class="spinner"></span>';
+
+  const payload = {
+    name, description: desc,
+    tags,
+    url: document.getElementById('f-url').value.trim() || null,
+    size: document.getElementById('f-size').value,
+    emoji: document.getElementById('f-emoji').value.trim() || null,
+    color: selColor,
+    img: imgData || null,
+    featured: document.getElementById('f-featured').checked,
+    position: parseInt(document.getElementById('f-position').value) || 0,
+    updated_at: new Date().toISOString()
+  };
+
+  try {
+    if (editingId) {
+      await sbUpdate(editingId, payload);
+      showToast('✅ Projet mis à jour !', 'ok');
+    } else {
+      payload.created_at = new Date().toISOString();
+      await sbInsert(payload);
+      showToast('✅ Projet ajouté au portfolio !', 'ok');
+    }
+    resetForm();
+    await loadProjects();
+  } catch(e) {
+    showToast('❌ Erreur : ' + e.message, 'err');
+  } finally {
+    btn.disabled = false;
+    document.getElementById('submit-txt').textContent = editingId ? '💾 Enregistrer' : '➕ Ajouter le projet';
+  }
+}
+
+/* ══ EDIT ══ */
+function editProject(id) {
+  const p = window._projects?.find(x => x.id === id);
+  if (!p) return;
+  editingId = id;
+  document.getElementById('f-name').value = p.name || '';
+  document.getElementById('f-desc').value = p.description || p.desc || '';
+  document.getElementById('f-url').value = p.url || '';
+  document.getElementById('f-size').value = p.size || 'wide';
+  document.getElementById('f-emoji').value = p.emoji || '';
+  document.getElementById('f-position').value = p.position ?? 0;
+  document.getElementById('f-featured').checked = p.featured || false;
+  tags = [...(p.tags||[])]; renderTags();
+  selColor = p.color || '#FF4D00';
+  document.querySelectorAll('.color-opt').forEach(o => o.classList.toggle('active', o.dataset.c === selColor));
+  if (p.img) {
+    imgData = p.img;
+    document.getElementById('img-prev').src = p.img;
+    document.getElementById('img-prev').classList.add('show');
+    document.getElementById('up-icon').style.display = 'none';
+    document.getElementById('up-txt').style.display = 'none';
+  }
+  document.getElementById('edit-badge').classList.add('show');
+  document.getElementById('submit-txt').textContent = '💾 Enregistrer les modifications';
+  document.getElementById('btn-cancel').classList.add('show');
+  document.querySelector('.form-panel').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function resetForm() {
+  editingId = null; tags = []; imgData = null; selColor = '#FF4D00';
+  ['f-name','f-url','f-emoji'].forEach(id => document.getElementById(id).value='');
+  document.getElementById('f-desc').value='';
+  document.getElementById('f-size').value='wide';
+  document.getElementById('f-position').value='';
+  document.getElementById('f-featured').checked=false;
+  renderTags();
+  document.getElementById('img-prev').classList.remove('show');
+  document.getElementById('img-prev').src='';
+  document.getElementById('up-icon').style.display='';
+  document.getElementById('up-txt').style.display='';
+  document.getElementById('f-img').value='';
+  document.querySelectorAll('.color-opt').forEach(o => o.classList.toggle('active', o.dataset.c==='#FF4D00'));
+  document.getElementById('edit-badge').classList.remove('show');
+  document.getElementById('submit-txt').textContent='➕ Ajouter le projet';
+  document.getElementById('btn-cancel').classList.remove('show');
+}
+
+/* ══ DELETE ══ */
+let delId = null;
+function confirmDelete(id) { delId=id; document.getElementById('modal-del').classList.add('show'); }
+function closeModal() { document.getElementById('modal-del').classList.remove('show'); delId=null; }
+document.getElementById('btn-del-confirm').addEventListener('click', async () => {
+  if (!delId) return;
+  try {
+    await sbDelete(delId);
+    showToast('🗑️ Projet supprimé', 'err');
+    closeModal();
+    await loadProjects();
+  } catch(e) { showToast('Erreur: '+e.message,'err'); }
+});
+document.getElementById('modal-del').addEventListener('click', e => { if(e.target===e.currentTarget) closeModal(); });
+
+/* ══ LOAD & RENDER ══ */
+async function loadProjects() {
+  try {
+    const projects = await sbGet();
+    window._projects = projects;
+    renderList(projects);
+  } catch(e) {
+    showToast('Erreur chargement: '+e.message,'err');
+  }
+}
+
+function renderList(projects) {
+  const list = document.getElementById('proj-list');
+  const empty = document.getElementById('list-empty');
+  document.getElementById('list-count').textContent = projects.length + (projects.length<=1?' projet':' projets');
+  document.getElementById('s-total').textContent = projects.length;
+  document.getElementById('s-feat').textContent = projects.filter(p=>p.featured).length;
+  document.getElementById('s-links').textContent = projects.filter(p=>p.url).length;
+  document.getElementById('s-imgs').textContent = projects.filter(p=>p.img).length;
+
+  if (!projects.length) { empty.style.display='block'; list.innerHTML=''; return; }
+  empty.style.display='none';
+
+  list.innerHTML = projects.map((p,i) => `
+    <div class="proj-item" draggable="true" data-id="${p.id}" data-idx="${i}">
+      <div class="drag-handle">⠿</div>
+      ${p.img
+        ? `<img class="proj-thumb" src="${p.img}" alt="${p.name}"/>`
+        : `<div class="proj-thumb-ph" style="color:${p.color||'#FF4D00'}">${p.emoji||'📁'}</div>`
+      }
+      <div class="proj-info">
+        <div class="proj-name">${p.featured?'★ ':''}${p.name}</div>
+        <div class="proj-tags">
+          ${(p.tags||[]).slice(0,3).map(t=>`<span class="proj-tag">${t}</span>`).join('')}
+          ${(p.tags||[]).length>3?`<span class="proj-tag">+${p.tags.length-3}</span>`:''}
+        </div>
+      </div>
+      <div class="proj-size">{{${sizeLabel(p.size)}}}</div>
+      <div class="proj-actions">
+        <button class="btn outline" onclick="editProject('${p.id}')">✏️</button>
+        <button class="btn danger" onclick="confirmDelete('${p.id}')">🗑️</button>
+      </div>
+    </div>
+  `).join('').replace(/\{\{/g,'').replace(/\}\}/g,'');
+
+  initDrag();
+}
+
+function sizeLabel(s) {
+  return {featured:'Grande',wide:'Moyenne',side:'Petite',full:'Pleine'}[s]||s;
+}
+
+/* ══ DRAG & DROP ══ */
+function initDrag() {
+  const items = document.querySelectorAll('.proj-item');
+  let src = null;
+  items.forEach(item => {
+    item.addEventListener('dragstart', function() { src=this; setTimeout(()=>this.style.opacity='.35',0); });
+    item.addEventListener('dragend',   function() { this.style.opacity=''; document.querySelectorAll('.proj-item').forEach(i=>i.style.borderTop=''); });
+    item.addEventListener('dragover',  function(e) { e.preventDefault(); document.querySelectorAll('.proj-item').forEach(i=>i.style.borderTop=''); this.style.borderTop='2px solid var(--orange)'; });
+    item.addEventListener('drop', async function(e) {
+      e.preventDefault();
+      if (src===this) return;
+      const projects = [...window._projects];
+      const fi = parseInt(src.dataset.idx);
+      const ti = parseInt(this.dataset.idx);
+      const [m] = projects.splice(fi,1);
+      projects.splice(ti,0,m);
+      // Update positions in Supabase
+      await Promise.all(projects.map((p,i) => sbUpdate(p.id, {position:i})));
+      await loadProjects();
+      showToast('✅ Ordre mis à jour','ok');
+    });
+  });
+}
+
+/* ══ TOAST ══ */
+function showToast(msg, type='') {
+  const t = document.getElementById('toast');
+  const el = document.createElement('div');
+  el.className = `t-msg ${type}`;
+  el.textContent = msg;
+  t.appendChild(el);
+  setTimeout(()=>el.remove(), 3500);
+}
+</script>
+</body>
+</html>
