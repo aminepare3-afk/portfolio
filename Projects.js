@@ -1,8 +1,8 @@
 /* ══════════════════════════════════════
    PROJECTS.JS — Charge depuis Supabase
 ══════════════════════════════════════ */
-const SB_URL = 'https://btjdrlmudyfjkztfzkss.supabase.co';
-const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ0amRybG11ZHlmamt6dGZ6a3NzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE0MzY5MTEsImV4cCI6MjA5NzAxMjkxMX0.AaCJhrRtS2gxnlI0YEqPPyTXv9Z_dPvSPAYvtEXA5XE';
+const SB_URL = 'https://ytpghkntnuuppmreeboo.supabase.co';
+const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl0cGdoa250bnV1cHBtcmVlYm9vIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIyMTY5NzEsImV4cCI6MjA5Nzc5Mjk3MX0.D4i-P18kRs0_nsMX5Kk8EYdnTV-ZIxDVfI_OvoAmE4E';
 
 async function fetchProjects() {
   const res = await fetch(
